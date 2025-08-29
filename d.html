@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dhanalakshmi Portfolio</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{
+      font-family:'Poppins',sans-serif;
+      background:linear-gradient(135deg,#ffdde1,#ee9ca7,#a1c4fd,#c2e9fb);
+      background-size:400% 400%;
+      animation:gradientShift 15s ease infinite;
+      color:#222;
+      line-height:1.6;
+      scroll-behavior:smooth;
+    }
+    section{padding:100px 10%;min-height:100vh;}
+    h1,h2{text-align:center;margin-bottom:20px;}
+
+    /* ===== Navbar ===== */
+    nav{
+      position:fixed;top:0;left:0;width:100%;
+      background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(12px);
+      display:flex;justify-content:space-between;align-items:center;
+      padding:15px 40px;
+      z-index:1000;
+      border-bottom:1px solid rgba(255,255,255,0.2);
+    }
+    nav h2{
+      font-size:24px;font-weight:700;
+      background:linear-gradient(90deg,#ff758c,#ff7eb3,#84fab0,#8fd3f4);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      animation:gradientMove 6s linear infinite;
+      background-size:300% 300%;
+    }
+    nav ul{
+      display:flex;gap:25px;list-style:none;
+    }
+    nav ul li a{
+      position:relative;color:#fff;font-weight:600;
+      padding:10px 16px;border-radius:25px;
+      transition:0.4s ease;text-decoration:none;
+    }
+    nav ul li a::before{
+      content:"";position:absolute;inset:0;
+      border-radius:25px;
+      background:linear-gradient(90deg,#ff758c,#ff7eb3,#84fab0,#8fd3f4);
+      opacity:0;transition:0.4s;z-index:-1;
+    }
+    nav ul li a:hover::before{opacity:1;filter:blur(8px);}
+    nav ul li a:hover{color:#222;background:#fff;box-shadow:0 0 12px rgba(255,255,255,0.7);}
+    nav ul li a.active{color:#222;background:#fff;box-shadow:0 0 15px rgba(255,255,255,0.8);}
+
+    /* Hamburger */
+    .menu-toggle{display:none;flex-direction:column;cursor:pointer;}
+    .bar{height:3px;width:25px;background:#fff;margin:4px 0;
+      border-radius:2px;transition:0.4s;}
+    @media(max-width:768px){
+      nav ul{
+        position:absolute;top:70px;left:-100%;
+        flex-direction:column;
+        background:rgba(0,0,0,0.8);
+        width:100%;text-align:center;
+        transition:0.4s;
+        padding:20px 0;
+      }
+      nav ul.show{left:0;}
+      .menu-toggle{display:flex;}
+    }
+
+    /* Section Styling */
+    .card{
+      background:rgba(255,255,255,0.2);
+      backdrop-filter:blur(10px);
+      border-radius:20px;padding:30px;
+      margin:20px auto;max-width:800px;
+      box-shadow:0 8px 20px rgba(0,0,0,0.1);
+      transition:transform 0.3s ease;
+      animation:fadeUp 1s ease;
+    }
+    .card:hover{transform:translateY(-8px);}
+
+    @keyframes gradientShift{
+      0%{background-position:0% 50%;}
+      50%{background-position:100% 50%;}
+      100%{background-position:0% 50%;}
+    }
+    @keyframes gradientMove{
+      0%{background-position:0% 50%;}
+      50%{background-position:100% 50%;}
+      100%{background-position:0% 50%;}
+    }
+    @keyframes fadeUp{
+      from{opacity:0;transform:translateY(30px);}
+      to{opacity:1;transform:translateY(0);}
+    }
+
+    /* Profile pic */
+    .profile-pic {
+      width: 150px;height: 150px;
+      border-radius: 50%;object-fit: cover;
+      margin-bottom: 20px;
+      border: 4px solid #fff;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+    }
+    .profile-pic:hover {transform: scale(1.08);}
+
+    /* Hobbies */
+    .hobby-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .hobby {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hobby:hover {
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+    .hobby .icon {
+      width: 60px;
+      height: 60px;
+      animation: glow 3s infinite alternate;
+    }
+    @keyframes glow {
+      from { filter: drop-shadow(0 0 4px rgba(255,255,255,0.5)); }
+      to { filter: drop-shadow(0 0 12px rgba(255,255,255,1)); }
+    }
+
+    /* Contact Icons */
+    .contact-icons {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin: 20px 0;
+    }
+    .contact-icon {
+      font-size: 28px;
+      text-decoration: none;
+      transition: transform 0.3s, filter 0.3s;
+    }
+    .contact-icon:hover {
+      transform: scale(1.3) rotate(8deg);
+      filter: drop-shadow(0 0 8px #fff);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <h2>Dhanalakshmi</h2>
+    <div class="menu-toggle" id="menu-toggle">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+    <ul id="nav-links">
+      <li><a href="#about" class="active">About Me</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#certificates">Certificates</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#hobbies">Hobbies</a></li>
+      <li><a href="#goal">Future Goal</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Sections -->
+  <section id="about">
+    <div class="card" style="text-align:center;">
+      <img src="/storage/emulated/0/Pictures/Remini/IMG_20250825_165827.jpg" alt="Profile Picture" class="profile-pic">
+      <h1>About Me</h1>
+      <p>I am Dhanalakshmi, a passionate B.Sc Computer Science student at Government Arts and Science College, Anthiyur.</p>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="card">
+      <h1>Education</h1>
+      <p>B.Sc Computer Science at Government Arts and Science College, Anthiyur.</p>
+      <p>Schooling (1st–12th) in Government School.</p>
+    </div>
+  </section>
+
+  <section id="certificates">
+    <div class="card">
+      <h1>Certificates</h1>
+      <ul>
+        <li>Naan Mudhalvan - HTML</li>
+        <li>Naan Mudhalvan - CSS</li>
+        <li>Naan Mudhalvan - JavaScript</li>
+        <li>[Placeholder]</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="card">
+      <h1>Projects</h1>
+      <ul>
+        <li>Registration Form</li>
+        <li>Time Table</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="hobbies">
+    <div class="card hobbies">
+      <h1>Hobbies</h1>
+      <div class="hobby-list">
+        <div class="hobby">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="url(#grad1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <defs>
+              <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#ff758c"/>
+                <stop offset="100%" stop-color="#ff7eb3"/>
+              </linearGradient>
+            </defs>
+            <path d="M12 20h9"></path>
+            <path d="M12 4h9"></path>
+            <path d="M5 4v16"></path>
+            <path d="M5 12h7"></path>
+          </svg>
+          <p>Drawing</p>
+        </div>
+
+        <div class="hobby">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="url(#grad2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <defs>
+              <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#84fab0"/>
+                <stop offset="100%" stop-color="#8fd3f4"/>
+              </linearGradient>
+            </defs>
+            <rect x="2" y="6" width="20" height="12" rx="2" ry="2"></rect>
+            <circle cx="8" cy="12" r="1.5"></circle>
+            <circle cx="16" cy="12" r="1.5"></circle>
+          </svg>
+          <p>Gaming</p>
+        </div>
+
+        <div class="hobby">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="url(#grad3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <defs>
+              <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#a1c4fd"/>
+                <stop offset="100%" stop-color="#c2e9fb"/>
+              </linearGradient>
+            </defs>
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 7H20v10H6.5A2.5 2.5 0 0 1 4 14.5v-5A2.5 2.5 0 0 1 6.5 7z"></path>
+          </svg>
+          <p>Practical Learning</p>
+        </div>
+
+        <div class="hobby">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="url(#grad4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <defs>
+              <linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#ff9a9e"/>
+                <stop offset="100%" stop-color="#fad0c4"/>
+              </linearGradient>
+            </defs>
+            <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+            <path d="M8 21h8"></path>
+            <path d="M12 17v4"></path>
+          </svg>
+          <p>Web Development</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="goal">
+    <div class="card">
+      <h1>Future Goal</h1>
+      <p>To master Java and become a Game & App Developer.</p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="card contact">
+      <h1>Contact</h1>
+      <div class="contact-icons">
+        <a href="tel:[Your Number]" class="contact-icon">📞</a>
+        <a href="mailto:[Your Email]" class="contact-icon">✉️</a>
+        <a href="https://instagram.com/[YourID]" target="_blank" class="contact-icon">📸</a>
+      </div>
+      <p>📞 Phone: +91 81489 06608<br>✉️ Email: dkanakkar@gmail.com<br>📸 Instagram: sweety_queen0397</p>
+    </div>
+  </section>
+
+  <script>
+    // Active link highlight on scroll
+    const sections=document.querySelectorAll("section");
+    const navLinks=document.querySelectorAll("nav ul li a");
+    window.onscroll=()=>{
+      let current="";
+      sections.forEach(sec=>{
+        const secTop=sec.offsetTop-100;
+        if(pageYOffset>=secTop){current=sec.getAttribute("id");}
+      });
+      navLinks.forEach(a=>{
+        a.classList.remove("active");
+        if(a.getAttribute("href").includes(current)){
+          a.classList.add("active");
+        }
+      });
+    };
+
+    // Hamburger toggle
+    const menuToggle=document.getElementById("menu-toggle");
+    const navUL=document.getElementById("nav-links");
+    menuToggle.addEventListener("click",()=>{navUL.classList.toggle("show");});
+  </script>
+</body>
+</html>
